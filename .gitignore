@@ -2,7 +2,7 @@ bin/
 
 working/
 
-lib/
+/lib/
 
 .vscode/
 
