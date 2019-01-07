@@ -2,10 +2,9 @@ bin/
 
 working/
 
-lib/
-
-.vscode/
+/lib/
 
 objects/
 
-
+rec.yuv
+str.bin
