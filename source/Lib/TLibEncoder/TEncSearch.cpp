@@ -36,7 +36,7 @@
  */
 
 // Eigen Library has to be included first, or I'll get errors using namespace Eigen
-#include <Eigen/Dense>
+#include <eigen3/Eigen/Dense>
 using namespace Eigen;
 
 #include "TLibCommon/CommonDef.h"
@@ -54,7 +54,7 @@ using namespace Eigen;
 
 signed short MVX_HALF, MVX_QRTER, MVY_HALF, MVY_QRTER = 0;
 std::vector<uint> array_e;
-uint PUHeight, PUWidth, C, VCOST;
+uint PUHeight, PUWidth, C;
 
 // Used to store index of Maximum element of Output layer
 MatrixXf::Index NN_out, maxCol;
@@ -1174,7 +1174,6 @@ __inline Void TEncSearch::xTZSearchHelp( const TComPattern* const pcPatternKey, 
     {
       // motion cost
       uiSad += m_pcRdCost->getCostOfVectorWithPredictor( iSearchX, iSearchY );
-      VCOST = m_pcRdCost->getCostOfVectorWithPredictor( iSearchX, iSearchY );
       if( uiSad < rcStruct.uiBestSad )
       {
         rcStruct.uiBestSad      = uiSad;
@@ -1376,124 +1375,6 @@ __inline Void TEncSearch::xTZ8PointSquareSearch( const TComPattern* const pcPatt
     }
   } // check bottom
 }
-
-
-//additing other square search
-
-// __inline Void TEncSearch::xTZ8PointSquareSearch2( const TComPattern* const pcPatternKey, IntTZSearchStruct& rcStruct, const TComMv* const pcMvSrchRngLT, const TComMv* const pcMvSrchRngRB, const Int iStartX, const Int iStartY, const Int iDist)
-// {
-//   const Int   iSrchRngHorLeft   = pcMvSrchRngLT->getHor();
-//   const Int   iSrchRngHorRight  = pcMvSrchRngRB->getHor();
-//   const Int   iSrchRngVerTop    = pcMvSrchRngLT->getVer();
-//   const Int   iSrchRngVerBottom = pcMvSrchRngRB->getVer();
-
-//   // 8 point search,                   //   1 2 3
-//   // search around the start point     //   4 0 5
-//   // with the required  distance       //   6 7 8
-//   assert( iDist != 0 );
-//   const Int iTop        = iStartY - iDist;
-//   const Int iBottom     = iStartY + iDist;
-//   const Int iLeft       = iStartX - iDist;
-//   const Int iRight      = iStartX + iDist;
-//   rcStruct.uiBestRound += 1;
-// // check top
-//   if ( iTop >= iSrchRngVerTop ) // check top
-//   {
-// 	 if ( iLeft >= iSrchRngHorLeft ) // check top left
-//     {
-// 		xTZSearchHelp(pcPatternKey, rcStruct, iLeft, iTop, 9, iDist);
-//     }
-	  
-// 	 if ( iLeft >= iSrchRngHorLeft ) // check top left
-//     {
-// 		xTZSearchHelp(pcPatternKey, rcStruct, iStartX - 1, iTop, 10, iDist);
-//     }
-//     xTZSearchHelp( pcPatternKey, rcStruct, iStartX, iTop, 11, iDist );
-	
-// 	if (iRight <= iSrchRngHorRight) // check top left
-//     {
-//       xTZSearchHelp( pcPatternKey, rcStruct, iStartX +1, iTop, 12, iDist );
-//     }
-	
-//     if ( iRight <= iSrchRngHorRight ) // check top right
-//     {
-//       xTZSearchHelp( pcPatternKey, rcStruct, iRight, iTop, 13, iDist );
-//     }
-//   }
-
-//   if ( iLeft >= iSrchRngHorLeft ) // check middle left
-//   {
-//     xTZSearchHelp( pcPatternKey, rcStruct, iLeft, iStartY-1, 14, iDist );
-//   }
-
-//   if (iRight <= iSrchRngHorRight) // check middle left
-//   {
-//     xTZSearchHelp( pcPatternKey, rcStruct, iRight, iStartY-1, 15, iDist );
-//   }
-  
-  
-//   if ( iLeft >= iSrchRngHorLeft ) // check middle left
-//   {
-//     xTZSearchHelp( pcPatternKey, rcStruct, iLeft, iStartY, 16, iDist );
-//   }
-  
-  
-//   if ( iRight <= iSrchRngHorRight ) // check middle right
-//   {
-//     xTZSearchHelp( pcPatternKey, rcStruct, iRight, iStartY, 17, iDist );
-//   }
-  
-//   if ( iLeft >= iSrchRngHorLeft ) // check middle left
-//   {
-//     xTZSearchHelp( pcPatternKey, rcStruct, iLeft, iStartY+1, 18, iDist );
-//   }
-  
-//   if (iRight <= iSrchRngHorRight) // check middle left
-//   {
-//     xTZSearchHelp( pcPatternKey, rcStruct, iRight, iStartY+1, 19, iDist );
-//   }
-  
-  
-  
-//   if ( iBottom <= iSrchRngVerBottom ) // check bottom
-//   {
-	  
-// 	if ( iLeft >= iSrchRngHorLeft ) // check bottom left
-//     {
-//       xTZSearchHelp( pcPatternKey, rcStruct, iLeft, iBottom, 20, iDist );
-//     }  
-	  
-// 	if ( iLeft >= iSrchRngHorLeft ) // check bottom left
-//     {
-//       xTZSearchHelp( pcPatternKey, rcStruct, iStartX - 1, iBottom, 21, iDist );
-//     }   
-	  
-	  
-    
-//     // check bottom middle
-//     xTZSearchHelp( pcPatternKey, rcStruct, iStartX, iBottom, 22, iDist );
-
-// 	if ( iRight <= iSrchRngHorRight ) // check bottom right
-//     {
-//       xTZSearchHelp( pcPatternKey, rcStruct, iStartX + 1, iBottom, 23, iDist );
-//     }
-	
-//     if ( iRight <= iSrchRngHorRight ) // check bottom right
-//     {
-//       xTZSearchHelp( pcPatternKey, rcStruct, iRight, iBottom, 24, iDist );
-//     }
-//   } 
-  
-//   // check bottom
-// }
-
-
-
-
-
-
-
-
 
 
 
@@ -4566,7 +4447,6 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   TComMv        cMvHalf, cMvQter;
   TComMv        cMvSrchRngLT;
   TComMv        cMvSrchRngRB;
-  // Distortion   INTCOST=0;
   TComYuv*      pcYuv = pcYuvOrg;
    
   assert(eRefPicList < MAX_NUM_REF_LIST_ADAPT_SR && iRefIdxPred<Int(MAX_IDX_ADAPT_SR));
@@ -4658,6 +4538,8 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   m_pcRdCost->setCostScale( 0 );
 
   // EMI: Modification
+
+  NN_pred();
   
   /* 
   Fractional Motion Estimation values computed by standard are stored in TComMv variables cMvHalf & cMvQter
@@ -4842,15 +4724,7 @@ Void TEncSearch::xPatternSearchFast( const TComDataCU* const  pcCU,
     case MESEARCH_DIAMOND:
       xTZSearch( pcCU, pcPatternKey, piRefY, iRefStride, pcMvSrchRngLT, pcMvSrchRngRB, rcMv, ruiSAD, pIntegerMv2Nx2NPred, false );
 	     
-      // EMI: neural network implementation
-
-      NN_pred();
-
-      //end of neural network code
-
       break;
-
-
 
     case MESEARCH_SELECTIVE:
       xTZSearchSelective( pcCU, pcPatternKey, piRefY, iRefStride, pcMvSrchRngLT, pcMvSrchRngRB, rcMv, ruiSAD, pIntegerMv2Nx2NPred );
@@ -5172,7 +5046,7 @@ Void TEncSearch::xTZSearch( const TComDataCU* const pcCU,
   iDist = 1;
   iStartX = cStruct.iBestX;
   iStartY = cStruct.iBestY;
-  C = cStruct.uiBestSad - VCOST;
+  
   xTZ8PointSquareSearch(pcPatternKey, cStruct, pcMvSrchRngLT, pcMvSrchRngRB, iStartX, iStartY, iDist, true);
   
   // END OF MODIFICATION
@@ -5180,6 +5054,7 @@ Void TEncSearch::xTZSearch( const TComDataCU* const pcCU,
   // write out best match
   rcMv.set( cStruct.iBestX, cStruct.iBestY );
   ruiSAD = cStruct.uiBestSad - m_pcRdCost->getCostOfVectorWithPredictor( cStruct.iBestX, cStruct.iBestY );
+  C = ruiSAD;
 }
 
 
