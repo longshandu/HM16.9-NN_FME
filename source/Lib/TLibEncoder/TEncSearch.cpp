@@ -199,7 +199,7 @@ void NN_pred(){
   IN_embs0.setZero(); IN_embs1.setZero(); IN_errors.setZero(); IN.setZero();
   X1.setZero(); X2.setZero(); OUT.setZero();
   array_e.clear();
-  NN_out = 0;
+  // NN_out = 0;
 
 }
 
@@ -4528,6 +4528,11 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
     }
   }
 
+  // ofstream in_csv, out_csv;
+  // in_csv.open("/home/vague/git-repos/HM16.9/DL/IN.csv", ios::app);
+  // out_csv.open("/home/vague/git-repos/HM16.9/DL/OUT.csv", ios::app);
+  // in_csv << ruiCost << ',' ;
+
   m_pcRdCost->selectMotionLambda( true, 0, pcCU->getCUTransquantBypass(uiPartAddr) );
 
   m_pcRdCost->setCostScale ( 1 );
@@ -4538,8 +4543,10 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   m_pcRdCost->setCostScale( 0 );
 
   // EMI: Modification
-
+  
+  // out_csv << ruiCost << endl;
   NN_pred();
+  // in_csv << NN_out << endl;
   
   /* 
   Fractional Motion Estimation values computed by standard are stored in TComMv variables cMvHalf & cMvQter
@@ -4564,18 +4571,8 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   Real values for errors: U,V,H           - NN values for errors: IN[]
   Real values for MV: cMvHalf, cMvQter    - NN values for MV: MV_HALF, MV_QRTER
   Block Width and Height: iRoiWidth, iRoiHeight
-  */
   
-  // ofstream mv_nn;
-  // ofstream errors;
-  // errors.open("/home/emi/git-repos/data/HM16.9/extract_data/SSE_errors.csv", ios::app);
-  // mv_nn.open("/home/emi/git-repos/data/HM16.9/extract_data/mv_nn.csv", ios::app);
-  // errors << U1 << ',' << V1 << ',' << U2 << ',' << H1 << ',' << C << ',' << H2 << ',' << U3 << ',' << V2 << ',' << U4 << ',' << iRoiHeight << ',' << iRoiWidth << endl;
-  // errors << ',' << xP << ',' << yP << ',' << PIdx  << ',' << PAddr << endl;
-  // errors << ',' << uiPartAddr << ',' << iPartIdx << endl;
-  
-  /*
-  Write the values of the output class directly instead of coordinates:
+  To write the values of the output class directly instead of coordinates:
   Half * 0.5 + Quarter * 0.25:  results in range from -0.75->0.75
   Add both X & Y + 0.75:        range is now 0->1.5
   Multiply X by 4:              X values are now [0, 1, 2, 3, 4, 5, 6]
@@ -4583,11 +4580,13 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   Adding X+Y results in the desired output class, given that the mapping starts from 
   0 for top left corner, 24 center, and 48 for bottom right corner
   */
-  
+
   // int MV_X = (((cMvHalf.getHor() * 0.5) + (cMvQter.getHor() * 0.25)) + 0.75) * 4;
   // int MV_Y = (((cMvHalf.getVer() * 0.5) + (cMvQter.getVer() * 0.25)) + 0.75) * 28;
   // int OUT_CLASS = MV_Y + MV_X;
-  // mv_nn << OUT_CLASS << endl;
+  // ofstream errors;
+  // errors.open("/home/vague/git-repos/HM16.9/DL/SSE.csv", ios::app);
+  // errors << array_e[0] << ',' << array_e[1] << ',' << array_e[2] << ',' << array_e[3] << ',' << C << ',' << array_e[4] << ',' << array_e[5] << ',' << array_e[6] << ',' << array_e[7] << ',' << iRoiHeight << ',' << iRoiWidth << ',' << OUT_CLASS <<endl;
 
   // Replace Motion Vector with values computed by our NN
 
@@ -4603,6 +4602,9 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
 
   ruiBits      += uiMvBits;
   ruiCost       = (Distortion)( floor( fWeight * ( (Double)ruiCost - (Double)m_pcRdCost->getCost( uiMvBits ) ) ) + (Double)m_pcRdCost->getCost( ruiBits ) );
+  
+  // out_csv << ruiCost << endl;
+
 }
 
 

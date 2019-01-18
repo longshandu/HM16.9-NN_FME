@@ -9,3 +9,7 @@ objects/
 rec.yuv
 str.bin
 doc/.directory
+.ipynb_checkpoints/NN_training-checkpoint.ipynb
+.directory
+DL/models
+DL/SSE*
