@@ -4529,8 +4529,8 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   }
 
   // ofstream in_csv, out_csv;
-  // in_csv.open("/home/vague/git-repos/HM16.9/DL/IN.csv", ios::app);
-  // out_csv.open("/home/vague/git-repos/HM16.9/DL/OUT.csv", ios::app);
+  // in_csv.open("/home/emi/git-repos/HM16.9/DL/IN.csv", ios::app);
+  // out_csv.open("/home/emi/git-repos/HM16.9/DL/OUT.csv", ios::app);
   // in_csv << ruiCost << ',' ;
 
   m_pcRdCost->selectMotionLambda( true, 0, pcCU->getCUTransquantBypass(uiPartAddr) );
@@ -4581,12 +4581,12 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   0 for top left corner, 24 center, and 48 for bottom right corner
   */
 
-  // int MV_X = (((cMvHalf.getHor() * 0.5) + (cMvQter.getHor() * 0.25)) + 0.75) * 4;
-  // int MV_Y = (((cMvHalf.getVer() * 0.5) + (cMvQter.getVer() * 0.25)) + 0.75) * 28;
-  // int OUT_CLASS = MV_Y + MV_X;
-  // ofstream errors;
-  // errors.open("/home/vague/git-repos/HM16.9/DL/SSE.csv", ios::app);
-  // errors << array_e[0] << ',' << array_e[1] << ',' << array_e[2] << ',' << array_e[3] << ',' << C << ',' << array_e[4] << ',' << array_e[5] << ',' << array_e[6] << ',' << array_e[7] << ',' << iRoiHeight << ',' << iRoiWidth << ',' << OUT_CLASS <<endl;
+  int MV_X = (((cMvHalf.getHor() * 0.5) + (cMvQter.getHor() * 0.25)) + 0.75) * 4;
+  int MV_Y = (((cMvHalf.getVer() * 0.5) + (cMvQter.getVer() * 0.25)) + 0.75) * 28;
+  int OUT_CLASS = MV_Y + MV_X;
+  ofstream errors;
+  errors.open("/home/emi/git-repos/HM16.9/DL/SSE.csv", ios::app);
+  errors << array_e[0] << ',' << array_e[1] << ',' << array_e[2] << ',' << array_e[3] << ',' << C << ',' << array_e[4] << ',' << array_e[5] << ',' << array_e[6] << ',' << array_e[7] << ',' << iRoiHeight << ',' << iRoiWidth << ',' << OUT_CLASS <<endl;
 
   // Replace Motion Vector with values computed by our NN
 
