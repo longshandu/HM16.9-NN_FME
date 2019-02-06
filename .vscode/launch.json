@@ -11,7 +11,7 @@
             "program": "${workspaceFolder}/bin/TAppEncoderStaticd",
             "args": ["-c", "${workspaceFolder}/cfg/encoder_lowdelay_P_main.cfg", "-c", "${workspaceFolder}/cfg/per-sequence/BlowingBubbles.cfg"],
             "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
+            "cwd": "${workspaceFolder}/bin",
             "environment": [],
             "externalConsole": false,
             "MIMode": "gdb",

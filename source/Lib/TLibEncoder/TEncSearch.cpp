@@ -4177,9 +4177,7 @@ Void TEncSearch::predInterSearch( TComDataCU* pcCU, TComYuv* pcOrgYuv, TComYuv* 
   } //  end of for ( Int iPartIdx = 0; iPartIdx < iNumPart; iPartIdx++ )
 
   setWpScalingDistParam( pcCU, -1, REF_PIC_LIST_X );
- // CTUW = iRoiWidth;
- // CTUH = iRoiHeight;
- // myfile << CTUH << ',' << CTUW << endl;
+  
   return;
 }
 
@@ -4198,9 +4196,9 @@ Void TEncSearch::xEstimateMvPredAMVP( TComDataCU* pcCU, TComYuv* pcOrgYuv, UInt 
   UInt       uiPartAddr = 0;
   Int        iRoiWidth, iRoiHeight;
   Int        i;
- 
+
   pcCU->getPartIndexAndSize( uiPartIdx, uiPartAddr, iRoiWidth, iRoiHeight );
- 
+
 
   // Fill the MV Candidates
   if (!bFilled)
@@ -4448,7 +4446,7 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   TComMv        cMvSrchRngLT;
   TComMv        cMvSrchRngRB;
   TComYuv*      pcYuv = pcYuvOrg;
-   
+
   assert(eRefPicList < MAX_NUM_REF_LIST_ADAPT_SR && iRefIdxPred<Int(MAX_IDX_ADAPT_SR));
   m_iSearchRange = m_aaiAdaptSR[eRefPicList][iRefIdxPred];
 
