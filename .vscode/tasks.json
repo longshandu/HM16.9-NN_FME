@@ -6,7 +6,7 @@
         {
             "label": "Build HM",
             "type": "shell",
-            "command": "cd ./build/linux/; and make -f makefile;",
+            "command": "cd ${workspaceFolder}/build/linux/; and make -f makefile;",
             "group": {
                 "kind": "build",
                 "isDefault": true
