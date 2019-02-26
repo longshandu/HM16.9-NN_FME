@@ -113,20 +113,20 @@ void NN_pred(){
   }
 
   // Input Layer
-  IN_errors = (((IN_errors - BN_rm_in) / BN_rv_in) * BN_gamma_in) + BN_beta_in;
+  IN_errors = (((IN_errors - BN_rm_in) / BN_rv_in.sqrt()) * BN_gamma_in) + BN_beta_in;
   IN << IN_embs0, IN_embs1, IN_errors;
 
   // First Hidden Layer
   X1 = in_h1 * IN.matrix();
   X1 = X1 + b1;
   // X1 = (((X1.array() < 0).select(0, X1)) * BN_gamma_1) + BN_beta_1;
-  X1 = ( ((((X1.array() < 0).select(0, X1)) - BN_rm_1) / BN_rv_1) * BN_gamma_1) + BN_beta_1;
+  X1 = ( ((((X1.array() < 0).select(0, X1)) - BN_rm_1) / BN_rv_1.sqrt()) * BN_gamma_1) + BN_beta_1;
   
   // Second Hidden Layer
   X2 = h1_h2 * X1.matrix();
   X2 = X2 + b2;
   // X2 = (((X2.array() < 0).select(0, X2)) * BN_gamma_2) + BN_beta_2;
-  X2 = ( ((((X2.array() < 0).select(0, X2)) - BN_rm_2) / BN_rv_2) * BN_gamma_2) + BN_beta_2;
+  X2 = ( ((((X2.array() < 0).select(0, X2)) - BN_rm_2) / BN_rv_2.sqrt()) * BN_gamma_2) + BN_beta_2;
 
   // OUTPUT LAYER
   OUT = h2_out * X2.matrix();
