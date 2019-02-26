@@ -4631,8 +4631,8 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   
   // ofstream mv_nn;
   // ofstream errors;
-  // errors.open("/home/emi/git-repos/data/HM16.9/extract_data/SSE_errors.csv", ios::app);
-  // mv_nn.open("/home/emi/git-repos/data/HM16.9/extract_data/mv_nn.csv", ios::app);
+  // errors.open("/home/vague/git-repos/data/HM16.9/extract_data/SSE_errors.csv", ios::app);
+  // mv_nn.open("/home/vague/git-repos/data/HM16.9/extract_data/mv_nn.csv", ios::app);
   // mv_nn << NN_out << endl;
   // mv_nn << MV_HALF.getHor() << ',' << MV_QRTER.getHor() << ',' << MV_HALF.getVer() << ',' << MV_QRTER.getVer() << endl;
   // mv_nn << cMvHalf.getHor() << ',' << cMvQter.getHor() << ',' << cMvHalf.getVer() << ',' << cMvQter.getVer()  << endl;
