@@ -14,8 +14,9 @@ VID="BlowingBubbles"
 # Rename the output files
 # Rinse and Repeat
 
+cd $HM/bin
 for qp in "${QPs[@]}";
 do
-    echo | $HM/bin/TAppEncoderStatic -c $HM/cfg/encoder_lowdelay_P_main.cfg -c $HM/cfg/per-sequence/$VID.cfg -q $qp
+    echo | ./TAppEncoderStatic -c $HM/cfg/encoder_lowdelay_P_main.cfg -c $HM/cfg/per-sequence/$VID.cfg -q $qp
     mv SSE.csv SSE_$qp.csv
 done

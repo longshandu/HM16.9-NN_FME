@@ -6,9 +6,20 @@
         {
             "label": "Build HM",
             "type": "shell",
-            "command": "cd ${workspaceFolder}/build/linux/; and make -f makefile;",
+            "linux": {"options": {"cwd": "${workspaceFolder}/build/linux/"}},
+            "command": "make -f makefile",
             "group": {
                 "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "Run Blowing Bubbles -f 10",
+            "type": "shell",
+            "linux": {"options": {"cwd": "${workspaceFolder}/bin"}},
+            "command": "echo | ./TAppEncoderStatic -c ../cfg/encoder_lowdelay_P_main.cfg -c ../cfg/per-sequence/BlowingBubbles.cfg -f 10;",
+            "group": {
+                "kind": "test",
                 "isDefault": true
             }
         }
