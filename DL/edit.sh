@@ -1,12 +1,12 @@
 #!/bin/bash
 
-QPs=(22)
+QPs=(22 27 32 37)
 Dir=blowing
 
 for qp in "${QPs[@]}";
 do
 	cd ~/git-repos/HM16.9/DL/$Dir/$qp
-    List=(emb* lins*-weight.csv lins*-bias.csv bn-weight.csv bns*-weight.csv bn-bias.csv bns*-bias.csv bn-running_mean.csv bns*-running_mean.csv bn-running_var.csv bns*-running_var.csv mapper*)
+    List=(emb* lins*-weight.csv outp-weight.csv lins*-bias.csv outp-bias.csv bn-weight.csv bns*-weight.csv bns*-bias.csv mapper*)
 	
 	for file in *;
 	do
