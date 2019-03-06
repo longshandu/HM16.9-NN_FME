@@ -9,8 +9,8 @@ objects/
 rec.yuv
 str.bin
 doc/.directory
-.ipynb_checkpoints/NN_training-checkpoint.ipynb
+.ipynb_checkpoints
 .directory
-DL/models
 DL/SSE*
 DL/blowing/*-Obselete/
+fastai07
