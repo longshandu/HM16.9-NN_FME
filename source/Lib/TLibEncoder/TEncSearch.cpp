@@ -1165,7 +1165,7 @@ __inline Void TEncSearch::xTZSearchHelp( const TComPattern* const pcPatternKey, 
 
     uiSad = m_cDistParam.DistFunc( &m_cDistParam );
 
-    // EMI: Modification "array_e & counter_i"
+    // EMI: If save is true, store the values of SSE in a dynamic array
     if(save) {array_e.push_back(uiSad);}
 
     // only add motion cost if uiSad is smaller than best. Otherwise pointless
@@ -4526,11 +4526,6 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
     }
   }
 
-  // ofstream in_csv, out_csv;
-  // in_csv.open("/home/vague/git-repos/HM16.9/DL/IN.csv", ios::app);
-  // out_csv.open("/home/vague/git-repos/HM16.9/DL/OUT.csv", ios::app);
-  // in_csv << ruiCost << ',' ;
-
   m_pcRdCost->selectMotionLambda( true, 0, pcCU->getCUTransquantBypass(uiPartAddr) );
 
   m_pcRdCost->setCostScale ( 1 );
@@ -4540,11 +4535,10 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
 
   m_pcRdCost->setCostScale( 0 );
 
-  // EMI: Modification
+  // EMI: Big chunk of modifications!
   
-  // out_csv << ruiCost << endl;
+  //Run our ANN model
   NN_pred();
-  // in_csv << NN_out << endl;
   
   /* 
   Fractional Motion Estimation values computed by standard are stored in TComMv variables cMvHalf & cMvQter
@@ -4565,7 +4559,8 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   // MV_QRTER.setVer(0);
 
   /* 
-  EMI: To Write the errors and output MV in a CSV file:
+  EMI: Dataset Extraction!
+  To Write the errors and output MV in a CSV file:
   Real values for errors: U,V,H           - NN values for errors: IN[]
   Real values for MV: cMvHalf, cMvQter    - NN values for MV: MV_HALF, MV_QRTER
   Block Width and Height: iRoiWidth, iRoiHeight
@@ -4589,8 +4584,8 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   // Replace Motion Vector with values computed by our NN
 
   rcMv <<= 2;
-  // rcMv += (cMvHalf <<= 1);
-  // rcMv += cMvQter;
+  // rcMv += (cMvHalf <<= 1); // Standard FME MV, Half
+  // rcMv += cMvQter;         // Standard FME MV, Half
   rcMv += (MV_HALF <<= 1);
   rcMv += MV_QRTER;
   
@@ -4601,8 +4596,6 @@ Void TEncSearch::xMotionEstimation( TComDataCU* pcCU, TComYuv* pcYuvOrg, Int iPa
   ruiBits      += uiMvBits;
   ruiCost       = (Distortion)( floor( fWeight * ( (Double)ruiCost - (Double)m_pcRdCost->getCost( uiMvBits ) ) ) + (Double)m_pcRdCost->getCost( ruiBits ) );
   
-  // out_csv << ruiCost << endl;
-
 }
 
 
@@ -5041,12 +5034,12 @@ Void TEncSearch::xTZSearch( const TComDataCU* const pcCU,
   }
 
 
-  // EMI: BIG DIFFERENCE!
-  // getting the 8 SAD points
+  // EMI: Storing the 8 integer SSE points
+
   iDist = 1;
   iStartX = cStruct.iBestX;
   iStartY = cStruct.iBestY;
-  
+  // Notice that we set the save flag to true
   xTZ8PointSquareSearch(pcPatternKey, cStruct, pcMvSrchRngLT, pcMvSrchRngRB, iStartX, iStartY, iDist, true);
   
   // END OF MODIFICATION
@@ -5054,7 +5047,7 @@ Void TEncSearch::xTZSearch( const TComDataCU* const pcCU,
   // write out best match
   rcMv.set( cStruct.iBestX, cStruct.iBestY );
   ruiSAD = cStruct.uiBestSad - m_pcRdCost->getCostOfVectorWithPredictor( cStruct.iBestX, cStruct.iBestY );
-  C = ruiSAD;
+  C = ruiSAD;  // EMI: Storing the value of the best integer location "center"
 }
 
 

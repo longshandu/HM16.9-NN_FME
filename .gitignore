@@ -15,3 +15,4 @@ DL/SSE*
 DL/blowing/*-Obselete/
 fastai07
 tmp*
+.vscode/ipch
