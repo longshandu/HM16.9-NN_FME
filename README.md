@@ -2,7 +2,7 @@
 
 This repo presents the results obtained in our [latest paper](https://www.google.com "Place-holder"), along with 
 steps and requirements on how to recreate the results.  
-The repo is a fork of [HEVC reference software (HM-16.19)](https://hevc.hhi.fraunhofer.de), with additional tweaks 
+The repo is a fork of [HEVC reference software (HM-16.9)](https://hevc.hhi.fraunhofer.de), with additional tweaks 
 on the Encoder source files to enable Fractional-pixel Motion Estimation (FME) using Artificial Neural Networks 
 (ANNs). Mainly, most of our work is concerned with [TEncSearch.cpp](./source/Lib/TLibEncoder/TEncSearch.cpp). 
 Additionally, we provide an accompanying Jupyter Notebook which goes through the training process of our ANN.
@@ -32,7 +32,7 @@ cd ./bin
 ```
 
 ## Directories
-The directory structure remains the same as HM-16.19, with the addition of: 
+The directory structure remains the same as HM-16.9, with the addition of: 
 * DL folder: Contains all Deep Learning related material, such as:
   * Saved FastAI models
   * Weights and Biases per Quantization Parameter
@@ -44,7 +44,7 @@ ln -s $PATH_TO_FASTAI ./fastai07
 ```
 
 ## List of Modifications
-Most of the codes are the same as generic HM-16.19. The list of modified files are as follows:  
+Most of the codes are the same as generic HM-16.9. The list of modified files are as follows:  
 1. [TEncSearch.cpp](./source/Lib/TLibEncoder/TEncSearch.cpp):
    Contains nearly all of our contributions, as well as codes for extracting the data set. You 
    can find all changes by searching for EMI (Ehab M. Ibrahim), and reading the comments above 
