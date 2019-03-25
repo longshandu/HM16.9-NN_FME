@@ -125,21 +125,21 @@ void NN_pred(){
   X1 = in_h1 * IN.matrix();
   // X1 = X1 + b1;
   X1 = (X1 * BN_gamma_1) + BN_beta_1;
-  X1 = X1.unaryExpr(&hardtanh);
+  X1 = X1.unaryExpr(&hardtanh).cast<float>();
   X1 = X1.array().sign().cast<float>();
 
   // Second Hidden Layer
   X2 = h1_h2 * X1.matrix();
   // X2 = X2 + b2;
   X2 = (X2 * BN_gamma_2) + BN_beta_2;
-  X2 = X2.unaryExpr(&hardtanh);
+  X2 = X2.unaryExpr(&hardtanh).cast<float>();
   X2 = X2.array().sign().cast<float>();
 
   // Third Hidden Layer
   X3 = h2_h3 * X1.matrix();
   // X3 = X3 + b3;
   X3 = (X3 * BN_gamma_3) + BN_beta_3;
-  X3 = X3.unaryExpr(&hardtanh);
+  X3 = X3.unaryExpr(&hardtanh).cast<float>();
   X3 = X3.array().sign().cast<float>();
   
   // OUTPUT LAYER
