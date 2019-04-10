@@ -1,7 +1,7 @@
 #!/bin/bash
 
 QPs=(22)
-Dir=blowing
+Dir=Half
 
 for qp in "${QPs[@]}";
 do
