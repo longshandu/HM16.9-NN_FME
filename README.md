@@ -1,11 +1,12 @@
 # Neural Networks Based Fractional Pixel Motion Estimation for HEVC
 
-This repo presents the results obtained in our [latest paper](https://www.google.com "Place-holder"), along with 
+This repo presents the results obtained in our latest paper (WIP), along with 
 steps and requirements on how to recreate the results.  
 The repo is a fork of [HEVC reference software (HM-16.9)](https://hevc.hhi.fraunhofer.de), with additional tweaks 
 on the Encoder source files to enable Fractional-pixel Motion Estimation (FME) using Artificial Neural Networks 
 (ANNs). Mainly, most of our work is concerned with [TEncSearch.cpp](./source/Lib/TLibEncoder/TEncSearch.cpp). 
-Additionally, we provide an accompanying Jupyter Notebook which goes through the training process of our ANN.
+Additionally, we provide an accompanying [Jupyter Notebook](./NN_training.ipynb) which goes through the 
+training process of our ANN.
 
 ## Requirements  
 The software packages we used to obtain our results had the following versions:  
